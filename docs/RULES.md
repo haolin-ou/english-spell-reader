@@ -39,19 +39,19 @@ rules and supplies the intended fields to `ParseOptions`, converting the stored
 reading and number mode strings to their enum values. The README demonstrates
 special-word and pause settings. To apply the saved space rule, map
 `ReaderRules.space_behavior` to `ParseOptions.whitespace_mode`. Rate, volume and
-voice IDs belong to later audio
-integration and have no effect on the current pure speech-planning CLI.
+voice IDs are used by the optional audio integration and have no effect on the
+pure speech-planning CLI.
 
 ## Source and validation limits
 
 The published settings implementation came from the existing local `6.4` snapshot.
-Timing helpers and the included original tests came from `6.6`; the original
+Timing helpers and the original settings/timing tests came from `6.6`; the original
 settings test file is byte-identical in `6.4` and `6.6`. The assembled core passes
 the available regression suite. This verifies the tested module interactions,
 not byte identity with the unavailable `6.6` settings implementation.
 
 The separate original symbol test file remains unavailable in cloud storage.
-It has not been reconstructed or skipped. Audio playback, desktop integration,
+It has not been reconstructed or skipped. Real audio playback, interactive desktop behavior,
 and Windows packaging remain outside this release's verification.
 
 Existing input-handling limits are retained: infinite pause values can raise

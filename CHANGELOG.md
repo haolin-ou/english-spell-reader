@@ -1,5 +1,17 @@
 # Changelog
 
+## 2026-11-26 — Speech orchestration and application entry points
+
+- Recovered and copied the existing `6.6` speech engine and Piper worker unchanged.
+- Included the original main entry point, controller and Tkinter view required by
+  the worker route and complete original playback/controller regression files.
+- Preserved 88 additional original tests; 148 included tests now pass using fake
+  speech backends, players and UI objects.
+- Declared existing source-project speech dependencies as an optional extra.
+- Documented automatic Piper-to-Edge fallback and its external text transmission,
+  source-snapshot provenance, and the lack of real audio/Windows validation.
+- Left voice models, third-party binaries and Windows packaging for separate review.
+
 ## 2026-11-26 — Saved rules and pause controls
 
 - Extracted existing JSON rule persistence and letter-pause helpers unchanged.
