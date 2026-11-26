@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-11-26 — Saved rules and pause controls
+
+- Extracted existing JSON rule persistence and letter-pause helpers unchanged.
+- Preserved 17 additional original regression tests; the included suite now has
+  60 passing tests.
+- Documented explicit saved-rule application, file write behavior, and an example
+  that uses a temporary configuration file.
+- Recorded the `6.4` settings / `6.6` core and timing source mix, the unavailable
+  symbol tests, and the still-unverified desktop/audio behavior.
+
 ## 2026-11-25 — First public extraction
 
 - Copied the existing parser, models, and symbol map without behavior changes.

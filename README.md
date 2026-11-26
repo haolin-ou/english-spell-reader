@@ -1,4 +1,4 @@
-# English Spell Reader — Speech-Planning Core
+# English Spell Reader — Speech Planning and Saved Rules
 
 A deterministic Python parser that turns English words, numbers, punctuation,
 and whitespace into explicit speech and pause instructions. It separates text
@@ -12,14 +12,20 @@ project**. Publication began on 2026-11-25; commit dates record preparation and
 publication here, not the original application's development timeline. AI tools
 assist with extraction, documentation, and verification.
 
-The first slice includes the original parser, data models, symbol map, and the
-available original parser/number tests, unchanged. A lightweight package
-initializer and JSON command-line example are new publication conveniences.
-The original initializer is not used in this standalone core.
+The current extraction includes the original parser, data models, symbol map,
+rule persistence, pause-timing helpers, and their available original tests,
+unchanged. A lightweight package initializer and JSON command-line example are
+publication conveniences. The original desktop initializer is not used here.
 
-Desktop UI, audio playback, voice models, user settings, and Windows packaging
-are outside this first slice. This is a rule-based text-processing component,
-not a trained language model, speech synthesizer, or complete desktop release.
+The settings module was recovered from the local `6.4` snapshot; the parser,
+timing helpers and included original tests come from `6.6`. The settings tests
+in those two snapshots are byte-identical, and all 60 included tests pass
+against this assembled core. The unreadable `6.6` settings copy has not been
+compared, so this is not claimed to be a complete, identical `6.6` release.
+
+Desktop UI, audio playback, voice models, and Windows packaging are outside the
+current extraction. This is a rule-based text-processing component, not a
+trained language model, speech synthesizer, or complete desktop release.
 
 ## Try it
 
@@ -51,6 +57,58 @@ for unit in plan.units:
     print(unit.action.value, unit.speak_text, unit.pause_ms)
 ```
 
+## Save and reuse rules
+
+The standalone `app.settings` module reads and writes JSON rules, and
+`app.timing` resolves letter-pause controls. They use only the Python standard
+library. Saved rules are not loaded automatically by the parser or JSON CLI;
+callers explicitly map them to `ParseOptions`.
+
+This example uses a temporary file, leaving any existing reader preferences alone:
+
+```python
+from pathlib import Path
+from tempfile import TemporaryDirectory
+
+from app.models import NumberMode, ParseOptions, ReadingMode
+from app.parser import build_speech_plan
+from app.settings import ReaderRules, load_rules, save_rules
+from app.timing import resolve_letter_pause_ms
+
+with TemporaryDirectory() as directory:
+    path = Path(directory) / "rules.json"
+    save_rules(
+        ReaderRules(
+            special_words=frozenset({"and"}),
+            word_pause_ms=250,
+            letter_pause_ms=10,
+            custom_letter_pause_ms=33,
+        ),
+        path,
+    )
+    rules = load_rules(path)
+    plan = build_speech_plan(
+        "and hello",
+        ParseOptions(
+            reading_mode=ReadingMode(rules.reading_mode),
+            number_mode=NumberMode(rules.number_mode),
+            special_words=rules.special_words,
+            word_pause_ms=rules.word_pause_ms,
+            letter_pause_ms=resolve_letter_pause_ms(
+                rules.letter_pause_ms, rules.custom_letter_pause_ms
+            ),
+        ),
+    )
+    print([(unit.action.value, unit.speak_text, unit.pause_ms) for unit in plan.units])
+```
+
+`save_rules` creates parent directories and overwrites the chosen JSON file.
+Without an explicit path, the existing implementation uses
+`%APPDATA%/EnglishSpellReader/rules.json` when `APPDATA` is set, otherwise
+`~/.english_spell_reader_rules.json`. No real user preferences are distributed
+in this repository. See [rule persistence and timing](docs/RULES.md) for scope
+and normalization details.
+
 ## Behaviors covered
 
 - English reading/spelling order and configurable spelling chunks.
@@ -58,6 +116,7 @@ for unit in plan.units:
 - Digit-by-digit or whole-number Chinese readings, with a leading-zero fallback.
 - Punctuation, contextual numeric minus signs, whitespace, and newline pauses.
 - Source spans and explicit pause instructions for downstream playback.
+- JSON rule round trips, field normalization, and letter-pause control limits.
 
 Audio path options are metadata for a future backend; this core does not open or
 validate audio files.
@@ -74,8 +133,9 @@ python -m pytest -q
 python -m compileall -q app tests
 ```
 
-The original tests retain their assertions; one new regression test verifies
-that the documented CLI returns a valid JSON speech plan. The source project's
+The original tests retain their assertions. There are 60 included tests: 42
+original parser/number tests, 17 original settings/timing tests, and one
+publication-specific CLI regression test. The source project's
 separate `test_symbols.py` file has not yet been recovered from cloud storage and
 is tracked as a publication gap, not a passing or skipped test. Symbol behaviors
 are also covered by cases in the included `test_parser.py`. Windows playback and
@@ -88,7 +148,9 @@ app/models.py        Typed options, tokens, source spans and speech units
 app/parser.py        Pure tokenization and speech-plan construction
 app/symbol_map.py    Built-in Chinese symbol readings
 app/__main__.py      JSON inspection command
-tests/              Original available parser and number regression tests
+app/settings.py      Serializable rules and JSON persistence
+app/timing.py        Letter-pause control normalization and resolution
+tests/               Original available core/rules/timing tests and CLI regression
 docs/ROADMAP.md      Remaining publication milestones and validation limits
 ```
 
