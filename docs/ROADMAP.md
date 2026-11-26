@@ -13,9 +13,13 @@ They do not represent a recreated history of the original development work.
 - [x] Publish speech orchestration and adapters with the existing main/Piper worker
       entry points and controller/UI needed by their unchanged regression tests.
       Fake-backend checks are explicitly separate from real audio/provider evidence.
-- [ ] Recover and publish Windows packaging scripts and their original tests.
+- [x] Recover and publish Windows packaging scripts and their original tests.
       UI source was included with speech orchestration to keep that slice coherent.
-      Preserve Windows script line endings; real Windows validation is pending.
+      CRLF is retained; real Windows validation is pending. The build script was
+      recovered from original Git objects, with dependency-selection adaptation
+      documented in `WINDOWS_BUILD.md`.
+- [ ] Recover the current `run_windows.bat` launcher. It is not required by the
+      build pipeline; `python -m app.main` remains the documented source entry.
 - [ ] Complete integration checks, a reproducible demo, and documentation of all
       remaining platform limits.
 

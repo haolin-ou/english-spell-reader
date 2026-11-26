@@ -17,3 +17,9 @@ dist/
 .codex/
 .claude/
 rules.json
+
+# Voice models and generated audio require separate provenance review.
+app/voices/
+*.onnx
+*.onnx.json
+*.wav

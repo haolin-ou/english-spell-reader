@@ -1,5 +1,16 @@
 # Changelog
 
+## 2026-11-26 — Windows build source and packaging checks
+
+- Recovered the existing PowerShell builder from the original project's Git
+  objects and published its batch entry, PyInstaller spec and Piper smoke scripts.
+- Preserved three additional original packaging tests; 151 included tests pass.
+- Normalized the recovered builder to CRLF and selected the existing speech,
+  build and test dependency groups for this extraction's optional-dependency layout.
+- Retained script bytes in source archives and excluded local voice/audio assets.
+- Documented missing model prerequisites, the unrecovered current launcher, the
+  original missing-executable exit-code limitation and unperformed Windows checks.
+
 ## 2026-11-26 — Speech orchestration and application entry points
 
 - Recovered and copied the existing `6.6` speech engine and Piper worker unchanged.

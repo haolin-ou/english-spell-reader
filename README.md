@@ -1,4 +1,4 @@
-# English Spell Reader — Planning, Rules and Speech Orchestration
+# English Spell Reader — Planning, Speech and Windows Build Source
 
 A deterministic Python parser that turns English words, numbers, punctuation,
 and whitespace into explicit speech and pause instructions. It separates text
@@ -13,8 +13,11 @@ publication here, not the original application's development timeline. AI tools
 assist with extraction, documentation, and verification.
 
 The current extraction includes the original parser, rule persistence, timing
-helpers, speech adapters, controller, UI and application/worker entry points.
-Their source and available original tests are copied unchanged. A lightweight
+helpers, speech adapters, controller, UI and application/worker entry points,
+plus Windows build scripts and their original packaging tests.
+Application source and available original tests are copied unchanged. The
+recovered build script has two documented publication adaptations described in
+[Windows build scope](docs/WINDOWS_BUILD.md). A lightweight
 package initializer and JSON command-line example are publication conveniences;
 the original desktop package initializer is not used here.
 
@@ -22,13 +25,15 @@ The settings implementation comes from local snapshot `6.4`. The speech engine,
 parser, timing helpers and Piper/main entry points come from `6.6`; controller/UI
 and additional tests were recovered from `1111` and `New project 2` copies of the
 same project. Exact per-file provenance is documented in
-[speech publication scope](docs/SPEECH.md). All 148 included tests pass against
+[speech publication scope](docs/SPEECH.md) and
+[Windows build provenance](docs/WINDOWS_BUILD.md). All 151 included tests pass against
 this assembled source. This is not claimed to be an identical full `6.6` snapshot.
 
 **Validation is limited to the pure core and fake speech/UI backends.** Real
 Windows playback, real SAPI/Piper/Edge calls, GUI interaction and packaging have
-not been verified here. Voice models and Windows build scripts are not included
-in this slice. This is application orchestration around existing speech systems,
+not been verified here. The packaging tests inspect script/spec text only.
+Voice models and desktop binaries are not included.
+This is application orchestration around existing speech systems,
 not an original trained speech model or a validated desktop binary.
 
 ## Try it
@@ -139,6 +144,14 @@ when available, so selecting Piper in the GUI does not guarantee offline use.
 The JSON planning command `python -m app` does not invoke these speech routes.
 See [speech scope and validation](docs/SPEECH.md) before using real playback.
 
+## Windows packaging source
+
+The recovered build pipeline includes virtual-environment repair, original tests,
+Piper source/packaged-worker smoke checks and a PyInstaller spec. A complete build
+requires Windows and separately obtained, appropriately licensed Piper model pairs.
+Read the [requirements, command and known limits](docs/WINDOWS_BUILD.md) before
+running it. No Windows executable has been built or verified for this release.
+
 ## Behaviors covered
 
 - English reading/spelling order and configurable spelling chunks.
@@ -165,9 +178,10 @@ python -m pytest -q
 python -m compileall -q app tests
 ```
 
-The original tests retain their assertions. There are 148 included tests: 147
+The original tests retain their assertions. There are 151 included tests: 150
 original tests covering parsing, rules, timing, fake playback/controller/UI
-behavior, and one publication-specific CLI regression. The speech tests inject
+behavior and packaging source checks, and one publication-specific CLI regression.
+The speech tests inject
 fake drivers, synthesize stub data, and substitute players; they do not prove real
 audio quality, model inference, external-service access or Windows operation.
 
@@ -190,8 +204,11 @@ app/piper_worker.py  Local Piper render-job worker
 app/controller.py    UI bindings, queue handling and speech routing
 app/ui.py            Existing Tkinter view
 app/main.py          GUI entry and Piper subprocess dispatch
+scripts/             Windows builder and original Piper smoke scripts
+spelling_reader.spec Existing PyInstaller runtime/model collection rules
 tests/               Original available regression tests and CLI regression
 docs/SPEECH.md       Backend boundaries, provenance and validation limits
+docs/WINDOWS_BUILD.md Build prerequisites, source provenance and limitations
 docs/ROADMAP.md      Remaining publication milestones and validation limits
 ```
 
