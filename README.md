@@ -12,6 +12,10 @@ project**. Publication began on 2026-11-25; commit dates record preparation and
 publication here, not the original application's development timeline. AI tools
 assist with extraction, documentation, and verification.
 
+The planned source-publication sequence is complete. A
+[reproduction guide and validation matrix](docs/VALIDATION.md) records the final
+installed-package checks and the remaining source/platform gaps.
+
 The current extraction includes the original parser, rule persistence, timing
 helpers, speech adapters, controller, UI and application/worker entry points,
 plus Windows build scripts and their original packaging tests.
@@ -48,6 +52,10 @@ python -m app "hello 123!"
 The command prints JSON with source spans, tokens, selected options, and ordered
 speech/pause units. The defaults spell each English word before reading it and
 read digits using Chinese digit names. No audio is generated or transmitted.
+
+See the [complete example output](examples/hello-123.json) and
+[installed-package reproduction check](docs/VALIDATION.md) to inspect and compare
+the same deterministic plan outside the source checkout.
 
 To configure the parser in Python:
 
@@ -209,6 +217,8 @@ spelling_reader.spec Existing PyInstaller runtime/model collection rules
 tests/               Original available regression tests and CLI regression
 docs/SPEECH.md       Backend boundaries, provenance and validation limits
 docs/WINDOWS_BUILD.md Build prerequisites, source provenance and limitations
+docs/VALIDATION.md   Installed-package reproduction and evidence boundaries
+examples/hello-123.json Complete generated CLI example, without audio
 docs/ROADMAP.md      Remaining publication milestones and validation limits
 ```
 

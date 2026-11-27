@@ -1,0 +1,143 @@
+{
+  "source_text": "hello 123!",
+  "options": {
+    "reading_mode": "spell_then_read_word",
+    "number_mode": "digit_by_digit",
+    "special_words": [],
+    "custom_symbol_readings": {},
+    "custom_letter_readings": {},
+    "custom_letter_audio_paths": {},
+    "word_pause_ms": 120,
+    "letter_pause_ms": 0,
+    "spell_chunk_size": 1,
+    "spell_chunk_pause_ms": 300,
+    "whitespace_mode": "pause"
+  },
+  "tokens": [
+    {
+      "kind": "english_word",
+      "text": "hello",
+      "span": {
+        "start": 0,
+        "end": 5
+      }
+    },
+    {
+      "kind": "whitespace",
+      "text": " ",
+      "span": {
+        "start": 5,
+        "end": 6
+      }
+    },
+    {
+      "kind": "number",
+      "text": "123",
+      "span": {
+        "start": 6,
+        "end": 9
+      }
+    },
+    {
+      "kind": "symbol",
+      "text": "!",
+      "span": {
+        "start": 9,
+        "end": 10
+      }
+    }
+  ],
+  "units": [
+    {
+      "index": 0,
+      "source_text": "hello",
+      "span": {
+        "start": 0,
+        "end": 5
+      },
+      "action": "spell_letter",
+      "voice_role": "english",
+      "speak_text": "H E L L O",
+      "pause_ms": 0,
+      "audio_path": null
+    },
+    {
+      "index": 1,
+      "source_text": "hello",
+      "span": {
+        "start": 0,
+        "end": 5
+      },
+      "action": "pause",
+      "voice_role": "none",
+      "speak_text": "",
+      "pause_ms": 120,
+      "audio_path": null
+    },
+    {
+      "index": 2,
+      "source_text": "hello",
+      "span": {
+        "start": 0,
+        "end": 5
+      },
+      "action": "read_word",
+      "voice_role": "english",
+      "speak_text": "hello",
+      "pause_ms": 0,
+      "audio_path": null
+    },
+    {
+      "index": 3,
+      "source_text": " ",
+      "span": {
+        "start": 5,
+        "end": 6
+      },
+      "action": "pause",
+      "voice_role": "none",
+      "speak_text": "",
+      "pause_ms": 120,
+      "audio_path": null
+    },
+    {
+      "index": 4,
+      "source_text": "123",
+      "span": {
+        "start": 6,
+        "end": 9
+      },
+      "action": "read_number",
+      "voice_role": "chinese",
+      "speak_text": "一二三",
+      "pause_ms": 0,
+      "audio_path": null
+    },
+    {
+      "index": 5,
+      "source_text": "!",
+      "span": {
+        "start": 9,
+        "end": 10
+      },
+      "action": "pause",
+      "voice_role": "none",
+      "speak_text": "",
+      "pause_ms": 120,
+      "audio_path": null
+    },
+    {
+      "index": 6,
+      "source_text": "!",
+      "span": {
+        "start": 9,
+        "end": 10
+      },
+      "action": "read_symbol",
+      "voice_role": "chinese",
+      "speak_text": "感叹号",
+      "pause_ms": 0,
+      "audio_path": null
+    }
+  ]
+}

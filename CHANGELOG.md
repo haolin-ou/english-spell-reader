@@ -1,5 +1,17 @@
 # Changelog
 
+## 2026-11-27 — Installed-package verification and reproducible example
+
+- Verified the included suite on Python 3.11 and 3.14 on macOS, retaining all
+  151 tests and their assertions.
+- Built and installed a wheel into a fresh environment without speech packages;
+  checked its complete CLI output and both README Python examples outside the
+  source checkout.
+- Published the actual deterministic JSON example and a reproduction guide that
+  separates core verification from unperformed Windows/model/audio checks.
+- Completed the planned source-publication sequence with the existing recovery
+  gaps recorded. Application code and package version `0.4.0` are unchanged.
+
 ## 2026-11-26 — Windows build source and packaging checks
 
 - Recovered the existing PowerShell builder from the original project's Git

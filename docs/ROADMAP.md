@@ -20,8 +20,14 @@ They do not represent a recreated history of the original development work.
       documented in `WINDOWS_BUILD.md`.
 - [ ] Recover the current `run_windows.bat` launcher. It is not required by the
       build pipeline; `python -m app.main` remains the documented source entry.
-- [ ] Complete integration checks, a reproducible demo, and documentation of all
-      remaining platform limits.
+- [x] Complete the planned core integration check, a reproducible JSON demo, and
+      documentation of remaining platform limits. A fresh installed wheel was
+      checked outside the source tree; the included suite was exercised on two
+      Python versions on macOS. See `VALIDATION.md` for the exact evidence boundary.
+
+The planned source-publication sequence is complete. The unchecked recovery
+items above and real Windows/provider/GUI validation remain explicit limitations,
+not new scheduled publication batches or claims of a complete desktop release.
 
 Incomplete or unverifiable source is not a release. A blocked milestone may take
 more than one day; publication dates are not a commitment to manufacture commits.
